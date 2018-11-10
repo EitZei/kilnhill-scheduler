@@ -1,0 +1,29 @@
+{
+  "name": "kilnhill-scheduler",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "tsc": "tsc",
+    "start-dev": "tsc && node dist/index.js",
+    "build": "tsc",
+    "start": "node dist/index.js"
+  },
+  "dependencies": {
+    "@types/luxon": "^1.4.1",
+    "influx": "^5.0.7",
+    "luxon": "^1.6.1",
+    "node-cron": "^2.0.3",
+    "puppeteer": "^1.10.0",
+    "typescript-eslint-parser": "^20.1.1",
+    "winston": "^3.1.0"
+  },
+  "devDependencies": {
+    "@types/puppeteer": "^1.10.0",
+    "eslint": "^5.8.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "prettier-eslint": "^8.8.2",
+    "typescript": "^3.1.6"
+  }
+}
