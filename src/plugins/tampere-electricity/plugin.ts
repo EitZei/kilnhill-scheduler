@@ -4,7 +4,8 @@ import { DateTime, Duration } from 'luxon';
 
 import influxProvider from '../../conf/influxdb';
 
-import * as fetcher from './fetcher';
+import * as tokenFetcher from './token-fetcher';
+import * as consumptionFetcher from './consumption-fetcher';
 
 const measurementsName = 'energyConsumption';
 
@@ -12,18 +13,19 @@ const influx = influxProvider(measurementsName);
 
 export async function apply() {
   const now = DateTime.local();
-  const weekFromNow = now.minus(Duration.fromObject({ days: 7 }));
+  const monthFromNow = now.minus(Duration.fromObject({ days: 30 }));
 
-  const energyMeasurements = await fetcher.fetchEnergyMeasurements(weekFromNow, now);
+  const jwtToken = await tokenFetcher.getJwtToken();
+
+  const energyMeasurements = await consumptionFetcher.fetchEnergyMeasurements(jwtToken, monthFromNow, now);
 
   const influxMeasurements = energyMeasurements.map(energyMeasurement => ({
     measurement: measurementsName,
     tags: {
-      source: 'WattiMaatti'
+      source: 'TampereElectricity'
     },
     fields: {
       energyConsumption: energyMeasurement.energyConsumption,
-      temperature: energyMeasurement.energyConsumption
     },
     timestamp: energyMeasurement.timestamp.toJSDate(),
   }));

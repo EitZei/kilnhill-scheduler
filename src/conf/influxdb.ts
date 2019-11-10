@@ -28,8 +28,7 @@ if (process.env.MOCK_INFLUXDB) {
     schema: [{
       measurement: measurementsName,
       fields: {
-        energyConsumption: Influx.FieldType.FLOAT,
-        temperature: Influx.FieldType.FLOAT,
+        energyConsumption: Influx.FieldType.FLOAT
       },
       tags: [
         'source'
